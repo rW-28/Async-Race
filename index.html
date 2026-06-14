@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Async Race</title>
+</head>
+<body>
+    <h1>Async Race</h1>
+
+    <!--create a car-->
+    <div class="container input-container">
+        <input type="text" id="carNameInput" placeholder="CHOOSE CAR BRAND">
+        <input type="color" id="carColorInput">
+        <button id="createCarBtn">CREATE</button>
+    </div>
+
+    <div class="container race-container">
+        <button id="generateCarsBtn">GENERATE CARS</button>
+        <button id="raceBtn">RACE</button>
+    </div>
+    
+
+    <div class="container main-container">
+        <ul id="listOfCars"></ul>
+    </div>
+    
+
+    <script type="module" src="./index.js"></script>
+</body>
+</html>
