@@ -1,3 +1,4 @@
+//import the modules
 import { 
     getCarsFromServer, createCarOnServer, deleteCarOnServer, 
     startEngineRequest, driveEngineRequest, stopEngineRequest 
@@ -5,7 +6,7 @@ import {
 import { renderCarList, animateCar, stopCarAnimation } from './ui.js';
 
 
-//DOM Elements
+//find DOM Elements
 const createBtn = document.getElementById('createCarBtn');
 const nameInput = document.getElementById('carNameInput');
 const colorInput = document.getElementById('carColorInput');
@@ -16,28 +17,36 @@ const raceBtn = document.getElementById('raceBtn');
 
 //GET CARS ARRAY
 async function updateApp() {
+    //wait to get an array of cars from the server using this function
     const cars = await getCarsFromServer();
+    //populate the list elements with these data
     renderCarList(cars, list, startCar, stopCar, deleteCar);
 }
 
 //MAKE CAR GO
 async function startCar(id) {    
     try {
+        //wait for data about speed by car's id
         const engineData = await startEngineRequest(id);
+        //use that data to calculate the duration of animation
         const duration = (engineData.distance / engineData.velocity) / 1000; 
 
+        //now we can move the car
         animateCar(id, duration);
 
+        //the car is already moving, but its engine moght break, that adds realism
         const driveResponse = await driveEngineRequest(id);
 
         if (!driveResponse.ok) {
             throw new Error('Engine broken');
         }
 
+        //after all that we check the array of cars again
         const cars = await getCarsFromServer();
         const car = cars.find(c => c.id === id);
         return car ? car.name : 'Unknown';
 
+    //if the engine died, we immediately get to this part
     } catch (error) {
         console.warn(`Машина ${id} заглохла! Останавливаем...`);
         stopCarAnimation(id, false);
@@ -101,3 +110,7 @@ raceBtn.addEventListener('click', async () => {
 })
 
 updateApp();
+
+
+
+

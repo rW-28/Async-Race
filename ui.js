@@ -40,3 +40,8 @@ export function stopCarAnimation(id, toStart = false) {
         carNameElement.style.transform = currentTransform;
     }
 }
+
+
+
+
+
